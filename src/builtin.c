@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/14 18:57:13 by silndoj           #+#    #+#             */
+/*   Updated: 2024/09/14 18:57:18 by silndoj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	change_old_pwd(t_mini *mini, int changed, int i)
@@ -9,9 +21,9 @@ void	change_old_pwd(t_mini *mini, int changed, int i)
 	if (check_envp(mini, "PWD") != 0)
 		oldpwd = var_value(mini->envp[check_envp(mini, "PWD") - 1], 3);
 	else if (check_envp(mini, "OLDPWD") != 0)
-		oldpwd = ft_strdup("") ;
+		oldpwd = ft_strdup("");
 	else
-		return;
+		return ;
 	pwd_string = ft_strjoin("OLDPWD=", oldpwd);
 	while (mini->envp[++i] != 0)
 	{
@@ -32,7 +44,6 @@ void	change_pwd(t_mini *mini, char *path)
 {
 	int		i;
 	char	*pwd;
-	
 
 	pwd = malloc (1024);
 	i = -1;
@@ -53,7 +64,6 @@ void	change_pwd(t_mini *mini, char *path)
 	}
 	free(pwd);
 	free(path);
-
 }
 
 int	cd_special(char *path, t_mini *mini, int i, char *path2)
@@ -66,7 +76,7 @@ int	cd_special(char *path, t_mini *mini, int i, char *path2)
 			{
 				path2 = ft_strjoin(&mini->envp[i][5], &path[1]);
 				change_pwd(mini, path2);
-				return 1;
+				return (1);
 			}
 		}
 	}
@@ -78,11 +88,11 @@ int	cd_special(char *path, t_mini *mini, int i, char *path2)
 			{
 				path2 = ft_strdup(&mini->envp[i][7]);
 				change_pwd(mini, path2);
-				return 1;
+				return (1);
 			}
 		}
 	}
-	return 0;
+	return (0);
 }
 
 void	change_directory(char *path, t_mini *mini)
@@ -109,9 +119,10 @@ void	change_directory(char *path, t_mini *mini)
 	}
 	path2 = ft_strdup(path);
 	change_pwd(mini, path2);
+	mini->exitstatus = 0;
 }
 
-void	show_path(void)
+void	show_path(t_mini *mini)
 {
 	int		i;
 	char	*path;
@@ -121,57 +132,5 @@ void	show_path(void)
 	path = getcwd(path, 1024);
 	printf("%s\n", path);
 	free(path);
-}
-
-void	show_env(t_mini *mini)
-{
-	int	i;
-
-	i = -1;
-	if (ft_strncmp(mini->arguments[1], "echo", 5) == 0)
-	{
-		echo(mini, 1);
-		return ;
-	}
-	if (ft_strncmp(mini->arguments[1], "pwd", 4) == 0)
-	{
-		show_path();
-		return ;
-	}
-	while (mini->envp[++ i] != 0)
-		printf("%s\n", mini->envp[i]);
-}
-
-void	echo_print(char *string, t_mini *mini)
-{
-	int j;
-	int i;
-
-	i = 0;
-	j = 0;
-	
-	while(string[i] != 0)
-	{
-		if(string[i] == '$')
-		{
-			j = search_var(mini , &string[i + 1]);
-			if (j == 0)
-				return ;
-			printf("%s", mini->variables[j - 1].value);
-			i += ft_strlen(mini->variables[j - 1].name);
-		}
-		else
-			printf("%c", string[i]);
-		i ++;
-	}
-}
-
-void	echo(t_mini *mini, int i)
-{
-	while (mini->arguments[++ i] != 0)
-	{
-		echo_print(mini->arguments[i], mini);
-		printf(" ");
-	}
-	printf("\n");
+	mini->exitstatus = 0;
 }

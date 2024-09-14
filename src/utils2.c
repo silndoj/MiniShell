@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/14 19:01:24 by silndoj           #+#    #+#             */
+/*   Updated: 2024/09/14 19:01:25 by silndoj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int check_for_pipes(char **str)
+int	check_for_pipes(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i] != 0)
+	while (str[i] != 0)
 	{
-		if(strncmp(str[i], "|", 2) == 0)
-			return 0;
-		i ++;
+		if (str[i] == '<' || str[i] == '|' || str[i] == '>')
+			return (0);
+		i++;
 	}
-	return 1;
+	return (1);
 }
 
 char	*find_path(char *envp[], char *cmd)
@@ -42,39 +54,33 @@ char	*find_path(char *envp[], char *cmd)
 	return (0);
 }
 
+void	handle_sigquit(int sig)
+{
+}
+
 void	handle_sigint(int sig)
 {
-	int	i;
-
-	i = sig;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void handle_sigterm(int	sig, t_mini *mini)
-{
-	// free_function(mini);
-	// free_stuff(mini);
-    exit(0);
-}
-
 void	add_signalhandler(t_mini *mini)
 {
-	struct sigaction sigint;
-
-	struct sigaction sigkill;
-	struct termios	term;
+	struct sigaction	sigint;
+	struct sigaction	sigquit;
+	struct termios		term;
 
 	sigint.sa_handler = handle_sigint;
 	sigemptyset(&sigint.sa_mask);
+	sigint.sa_flags = 0;
 	sigaction(SIGINT, &sigint, NULL);
-	sigkill.sa_handler = handle_sigint;
-	sigemptyset(&sigkill.sa_mask);
-	sigkill.sa_mask = 
-	sigaction(SIGTERM, &sigkill, NULL);
+	sigquit.sa_handler = handle_sigquit;
+	sigemptyset(&sigquit.sa_mask);
+	sigquit.sa_flags = 0;
+	sigaction(SIGQUIT, &sigquit, NULL);
 	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

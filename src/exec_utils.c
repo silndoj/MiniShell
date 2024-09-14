@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/14 18:57:53 by silndoj           #+#    #+#             */
+/*   Updated: 2024/09/14 18:57:55 by silndoj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ls(t_mini *mini)
 {
 	char	*path;
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
@@ -13,6 +25,7 @@ void	ls(t_mini *mini)
 	}
 	waitpid(pid, NULL, 0);
 }
+
 void	unset(t_mini *mini)
 {
 	int		j;
@@ -44,7 +57,7 @@ void	redirect(char *cmd, int fdout, t_mini *mini)
 
 	pipe(pipefd);
 	pid = fork();
-	if(pid)
+	if (pid)
 	{
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
@@ -55,12 +68,7 @@ void	redirect(char *cmd, int fdout, t_mini *mini)
 		close(pipefd[0]);
 		if (fdout == 1)
 			dup2(pipefd[1], STDOUT_FILENO);
-		else
-			dup2(fdout, STDOUT_FILENO);
 		close(pipefd[1]);
-		// if (fdin == STDIN_FILENO)
-		// 	exit(1);
-		// else
 		exec(cmd, mini);
 	}
 }

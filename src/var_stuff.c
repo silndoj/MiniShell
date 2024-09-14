@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   var_stuff.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/14 19:01:47 by silndoj           #+#    #+#             */
+/*   Updated: 2024/09/14 19:01:49 by silndoj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*var_name(char *string, int i)
@@ -52,7 +64,6 @@ void	save_var(t_mini *mini, int i)
 		varlist[j] = mini->variables[j];
 	varlist[j].name = var_name(mini->arguments[0], i);
 	varlist[j].value = var_value(mini->arguments[0], i);
-	j = -1;
 	free(mini->variables);
 	mini->variables = varlist;
 	mini->nr_var ++;

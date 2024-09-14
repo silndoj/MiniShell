@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history_stuff.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/14 18:59:13 by silndoj           #+#    #+#             */
+/*   Updated: 2024/09/14 18:59:25 by silndoj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	read_perma_history(void)
 {
-	int fd;
-	char buffer[2];
-	char *line;
+	int		fd;
+	char	buffer[2];
+	char	*line;
 
 	line = 0;
 	fd = open("tools/history.txt", O_RDONLY);
 	buffer[1] = 0;
-	while(read(fd, buffer, 1) > 0)
+	while (read(fd, buffer, 1) > 0)
 	{
 		if (buffer[0] == '\n')
 		{
@@ -17,7 +29,7 @@ void	read_perma_history(void)
 			free(line);
 			line = 0;
 		}
-		else	
+		else
 			line = ft_strjoin2(line, buffer);
 	}
 	if (line != 0)

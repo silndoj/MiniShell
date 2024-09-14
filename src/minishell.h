@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/09/04 19:54:40 by kkuhn            ###   ########.fr       */
+/*   Updated: 2024/09/14 19:04:40 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,30 @@
 # include <sys/stat.h>
 # include <dirent.h>
 
+typedef struct var_t
+{
+	char	buffer[2];
+	char	*cm;
+}	t_char;
+
 typedef struct variable_t
 {
-	char *name;
-	char *value;
-} t_var;
+	char	*name;
+	char	*value;
+}	t_var;
 
 typedef struct mini_t
 {
+	int		exitcode;
+	int		exitstatus;
 	char	*line;
 	char	**envp;
-	t_var 	*variables;
+	t_var	*variables;
 	size_t	nr_var;
 	char	**arguments;
 	int		finished;
-	int 	argc;
+	int		fdin;
+	int		argc;
 }	t_mini;
 
 //EXEC_FILES
@@ -51,41 +60,57 @@ void	exit_programm(t_mini *mini);
 void	echo(t_mini *mini, int i);
 void	show_env(t_mini *mini);
 void	change_directory(char *path, t_mini *mini);
-void	show_path(void);
+void	show_path(t_mini *mini);
 void	ls(t_mini *mini);
 void	new_line(void);
+void	ft_export(t_mini *mini);
 
 //UTILS
+int		check_envp(t_mini *mini, char *argument);
 char	*find_path(char *envp[], char *cmd);
-int		check_for_pipes(char **str);
+int		check_for_pipes(char *str);
 void	redirect(char *cmd, int fdin, t_mini *mini);
 char	*ft_remove_space(char *cmd);
+char	*remove_end_spaces(char *string);
 int		openfile(char *filename, int mode, int is_here_doc);
 char	*increment(char *string);
+void	command_check(char **arg, int i, int fd, t_char *cset);
+int		create_here_doc(char **arguments, int i, int fdin);
+void	pipe_check(t_mini *mini, int fdout, int	*i);
+char	*ft_str_safe(char **cmd, char c, char a, char b);
+char	*ft_strjoin2(char *s1, char *s2);
+void	ft_short(int *i, char **commands, char **cmd, char c);
+int		count_parts(char *cmd);
+char	**cmd_in_folder(char *cmd);
+char	*sign_check(char *line, int *i);
+char	*rd_out(char *line, int *i);
+char	*rd_in(char *line, int *i);
+
+//INIT
+void	init(t_mini *ministruct, char **envp);
 
 //ALLOCATIONS
 void	free_2dchar(char **array);
 void	realloc_smaller_2d(t_mini *mini, char *string);
 char	**realloc_2dchar(char **src, char *string, int i);
 void	free_function(t_mini *ministruct);
-void	leaks(void);
+void	free_stuff(t_mini *mini);
 
 //SIGNALS
 void	handle_sigint(int sig);
-void handle_sigterm(int	sig, t_mini *mini);
+void	handle_sigterm(int sig);
 void	add_signalhandler(t_mini *mini);
 
+//HISTORY
+void	read_perma_history(void);
+void	perma_history(char *cmdline);
+
+//PARSING
 void	print_arguments(char **arguments);
-void	init(t_mini *ministruct, char **envp);
-void	free_stuff(t_mini *mini);
 char	**allocate_command(char *cmd, t_mini *mini, int i);
 int		search_var(t_mini *mini, char *string);
 void	save_var(t_mini *mini, int i);
-void	read_perma_history(void);
-void	perma_history(char *cmdline);
-char	*ft_strjoin2(char *s1, char *s2);
-void	ft_export(t_mini *mini);
-int		check_envp(t_mini *mini, char *argument);
 char	*var_value(char *string, int i);
+void	arg_read(char *cmd, char **commands, int i, int size);
 
 #endif
