@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/09/14 19:04:40 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/14 19:14:35 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ char	*rd_out(char *line, int *i);
 char	*rd_in(char *line, int *i);
 
 //INIT
+void	print_arguments(char **arguments);
 void	init(t_mini *ministruct, char **envp);
+void	loop_mini(t_mini mini);
 
 //ALLOCATIONS
 void	free_2dchar(char **array);
@@ -106,7 +108,6 @@ void	read_perma_history(void);
 void	perma_history(char *cmdline);
 
 //PARSING
-void	print_arguments(char **arguments);
 char	**allocate_command(char *cmd, t_mini *mini, int i);
 int		search_var(t_mini *mini, char *string);
 void	save_var(t_mini *mini, int i);
