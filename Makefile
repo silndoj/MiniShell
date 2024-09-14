@@ -4,6 +4,7 @@ CC					=	cc
 FLAGS				=   -Wextra -Wall -Werror 
 
 SRCS_MAIN			= 	src/main.c				\
+						src/main_helper.c		\
 						src/utils.c				\
 						src/utils2.c 			\
 						src/utils3.c 			\
