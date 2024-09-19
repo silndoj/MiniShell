@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:59:01 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 18:59:03 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:16:17 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,7 @@ void	realloc_smaller_2d(t_mini *mini, char *string)
 
 void	free_function(t_mini *mini)
 {
-	int	i;
-
-	i = 0;
-	while (mini->envp[i] != 0)
-	{
-		free(mini->envp[i]);
-		i ++;
-	}
-	free(mini->envp);
+	free_2dchar(mini->envp);
 	while (mini->nr_var > 0)
 	{
 		free(mini->variables[mini->nr_var - 1].name);
@@ -61,20 +53,9 @@ void	free_function(t_mini *mini)
 
 void	free_stuff(t_mini *mini)
 {
-	int	i;
-
-	i = 0;
 	if (mini->line)
-		return ;
-	free(mini->line);
-	if (mini->arguments == 0)
-		return ;
-	while (mini->arguments[i] != 0)
-	{
-		free(mini->arguments[i]);
-		i ++;
-	}
-	free(mini->arguments);
+		free(mini->line);
+	free_2dchar(mini->arguments);
 }
 
 void	free_2dchar(char **array)
@@ -82,7 +63,10 @@ void	free_2dchar(char **array)
 	int	i;
 
 	i = -1;
-	while (array[++ i] != 0)
-		free(array[i]);
-	free(array);
+	if (array)
+	{
+		while (array[++ i] != 0)
+			free(array[i]);
+		free(array);
+	}
 }
