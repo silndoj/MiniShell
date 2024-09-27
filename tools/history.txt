@@ -1,0 +1,46 @@
+
+
+
+
+ls
+clear
+ls
+ls | pipe
+ls | wc 
+ls | wc -l
+export
+env
+VAR=1
+ls -la | cat
+ls
+VAR=1
+VAR=1
+VAR=1
+VAR=1
+VAR=1
+cd
+ls
+ls -a
+clear
+cat
+ls
+touch a
+ls
+VAR=1
+export VAR
+env
+echo VAR
+echo $VAR
+VAR=2
+env
+export VAR
+env
+VAR1=2
+export VAR1
+env
+VAR1=2
+VAR=2
+export VAR1
+env
+export VAR
+env

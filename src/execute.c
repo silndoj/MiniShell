@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:58:31 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 18:58:32 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:02:22 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,76 +24,8 @@ void	exec(char *cmd, t_mini *mini)
 		free_2dchar(args);
 		exit(127);
 	}
+	execve(path, args ,mini->envp);
 	exit(127);
-}
-
-int	input_stuff(t_mini *mini, int *i)
-{
-	int		fdin;
-
-	if (ft_strncmp(mini->arguments[*i], "<<", 3) == 0)
-	{
-		mini->fdin = open("here_doc.txt", O_CREAT | O_WRONLY | O_TRUNC, 06444);
-		mini->fdin = create_here_doc(mini->arguments, *i, fdin);
-		dup2(fdin, STDIN_FILENO);
-		close(fdin);
-		*i += 2;
-	}
-	else if (ft_strncmp(mini->arguments[*i], "<", 2) == 0)
-	{
-		fdin = open("here_doc.txt", O_CREAT | O_WRONLY | O_TRUNC, 06444);
-		dup2(fdin, STDIN_FILENO);
-		close(fdin);
-		*i += 2;
-	}
-	return (fdin);
-}
-
-int	output_stuff(t_mini *mini, int i)
-{
-	int	fdout;
-
-	if (ft_strncmp(mini->arguments[i + 1], ">", 2) == 0)
-	{
-		fdout = openfile(mini->arguments[i + 2], 1, 0);
-		dup2(fdout, STDOUT_FILENO);
-		return (fdout);
-	}
-	if (ft_strncmp(mini->arguments[i + 2], ">", 2) == 0)
-	{
-		fdout = openfile(mini->arguments[i + 3], 1, 0);
-		dup2(fdout, STDOUT_FILENO);
-		return (fdout);
-	}
-	if (ft_strncmp(mini->arguments[i + 2], ">>", 3) == 0)
-	{
-		fdout = openfile(mini->arguments[i + 3], 1, 1);
-		dup2(fdout, STDOUT_FILENO);
-		return (fdout);
-	}
-	return (1);
-}
-
-void	execute_pipes(t_mini *mini, int i)
-{
-	int		fdout;
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		while (mini->arguments[i] != 0)
-		{
-			fdout = 1;
-			input_stuff(mini, &i);
-			fdout = output_stuff(mini, i);
-			pipe_check(mini, fdout, &i);
-			if (fdout != 1)
-				i += 2;
-		}
-		exit(0);
-	}
-	waitpid(pid, &mini->exitcode, 0);
 }
 
 void	execute(t_mini *mini)
@@ -103,6 +35,8 @@ void	execute(t_mini *mini)
 	i = 0;
 	if (check_for_pipes(mini->line) == 0)
 		execute_pipes(mini, 0);
+//	else
+//		execute_wpipes(mini, 0);
 	else if (ft_strncmp(mini->arguments[0], "env", 4) == 0)
 		show_env(mini);
 	else if (ft_strchr(mini->arguments[0], '=') != 0)

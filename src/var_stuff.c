@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:01:47 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 19:01:49 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:11:55 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	save_var(t_mini *mini, int i)
 		varlist[j] = mini->variables[j];
 	varlist[j].name = var_name(mini->arguments[0], i);
 	varlist[j].value = var_value(mini->arguments[0], i);
-	free(mini->variables);
+//	free(mini->variables);
 	mini->variables = varlist;
 	mini->nr_var ++;
 }

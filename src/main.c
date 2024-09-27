@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 19:15:01 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:15:03 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	main(int argc, char *argv[], char **env)
 		argv[1] = 0;
 	init(&mini, env);
 	loop_mini(mini);
-	free_function(&mini);
+//	free_function(&mini);
 	return (0);
 }

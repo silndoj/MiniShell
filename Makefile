@@ -7,7 +7,6 @@ SRCS_MAIN			= 	src/main.c				\
 						src/main_helper.c		\
 						src/utils.c				\
 						src/utils2.c 			\
-						src/utils3.c 			\
 						src/parsing_stuff.c 	\
 						src/pars_utils.c 		\
 						src/builtin.c 			\
@@ -18,8 +17,12 @@ SRCS_MAIN			= 	src/main.c				\
 						src/execute.c			\
 						src/exec_utils.c 		\
 						src/exec_utils2.c 		\
-						src/exec_utils3.c 		\
 						src/free.c				\
+						src/alloc_stuff.c		\
+						src/pipe_stuff.c		\
+						src/pipe_stuff2.c		\
+						src/redir_stuff.c		\
+						src/signals.c			\
 
 LIBFT 				=	tools/libft/libft.a
 
@@ -47,7 +50,7 @@ clean:
 fclean: 			clean
 			@rm -rf $(NAME)
 			@rm -rf $(OBJ)
-			@cd tools/libft && make fclean -s
+			@cd tools/libft && make fclean  -s
 
 re:			fclean all
 

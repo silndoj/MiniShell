@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:59:01 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/19 18:16:17 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:03:58 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ void	free_2dchar(char **array)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (array)
 	{
-		while (array[++ i] != 0)
+		while (array[i] != 0)
+		{
 			free(array[i]);
+			i++;
+		}
 		free(array);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:01:12 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 19:01:13 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:24:39 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,30 @@ char	*ft_strjoin2(char *s1, char *s2)
 	return (result);
 }
 
-void	init(t_mini *ministruct, char **envp)
+char	*find_path(char *envp[], char *cmd)
 {
-	int	i;
+	int		i;
+	char	*path;
+	char	*part_path;
+	char	**paths;
 
 	i = 0;
-	read_perma_history();
-	ministruct->nr_var = 0;
-	ministruct->argc = 0;
-	while (envp[i] != 0)
+	if (ft_strnstr(&cmd[0], ".sh", ft_strlen(&cmd[0])) != 0
+		|| ft_strnstr(&cmd[0], "/", ft_strlen(&cmd[0])) != 0)
+		return (ft_remove_space(&cmd[0]));
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
 		i ++;
-	ministruct->envp = malloc((i + 1) * sizeof(char *));
-	i = 0;
-	while (envp[i] != 0)
+	paths = ft_split(&envp[i][5], ':');
+	i = -1;
+	while (paths[++ i] != 0)
 	{
-		if (ft_strncmp(envp[i], "SHLVL", 5) != 0)
-			ministruct->envp[i] = ft_strdup(envp[i]);
-		else
-			ministruct->envp[i] = increment(envp[i]);
-		i ++;
+		part_path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(part_path, cmd);
+		free(part_path);
+		if (access(path, F_OK) == 0)
+			return (free_2dchar(paths), path);
+		free(path);
 	}
-	ministruct->envp[i] = 0;
-	realloc_smaller_2d(ministruct, "OLDPWD");
+	free_2dchar(paths);
+	return (0);
 }

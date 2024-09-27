@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/09/14 19:14:35 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:58:10 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct mini_t
 //EXEC_FILES
 void	exec(char *cmd, t_mini *mini);
 void	execute(t_mini *mini);
-void	execute_pipes(t_mini *mini, int i);
 void	unset(t_mini *mini);
 void	exit_programm(t_mini *mini);
 void	echo(t_mini *mini, int i);
@@ -65,26 +64,37 @@ void	ls(t_mini *mini);
 void	new_line(void);
 void	ft_export(t_mini *mini);
 
+//UTILS_PIPE
+int		check_for_pipes(char *str);
+void	execute_pipes(t_mini *mini, int i);
+void	execute_wpipes(t_mini *mini, int i);
+void	pipe_check(t_mini *mini, int fdout, int	*i);
+char	*pipe_cmd(char *line, int *i);
+
+//UTILS_REDIRECT
+void	redirect(char *cmd, int fdin, t_mini *mini);
+int		openfile(char *filename, int mode, int is_here_doc);
+char	*rd_out(char *line, int *i);
+char	*rd_in(char *line, int *i);
+
+//INPUT_OUTPUT
+int		output_stuff(t_mini *mini, int i);
+int		input_stuff(t_mini *mini, int *i);
+
 //UTILS
 int		check_envp(t_mini *mini, char *argument);
 char	*find_path(char *envp[], char *cmd);
-int		check_for_pipes(char *str);
-void	redirect(char *cmd, int fdin, t_mini *mini);
 char	*ft_remove_space(char *cmd);
 char	*remove_end_spaces(char *string);
-int		openfile(char *filename, int mode, int is_here_doc);
 char	*increment(char *string);
 void	command_check(char **arg, int i, int fd, t_char *cset);
 int		create_here_doc(char **arguments, int i, int fdin);
-void	pipe_check(t_mini *mini, int fdout, int	*i);
 char	*ft_str_safe(char **cmd, char c, char a, char b);
 char	*ft_strjoin2(char *s1, char *s2);
 void	ft_short(int *i, char **commands, char **cmd, char c);
 int		count_parts(char *cmd);
 char	**cmd_in_folder(char *cmd);
 char	*sign_check(char *line, int *i);
-char	*rd_out(char *line, int *i);
-char	*rd_in(char *line, int *i);
 
 //INIT
 void	print_arguments(char **arguments);

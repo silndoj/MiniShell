@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 19:14:17 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:12:58 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,30 @@ void	print_arguments(char **arguments)
 	}
 }
 
+void	init(t_mini *ministruct, char **envp)
+{
+	int	i;
+
+	i = 0;
+	read_perma_history();
+	ministruct->nr_var = 0;
+	ministruct->argc = 0;
+	while (envp[i] != 0)
+		i ++;
+	ministruct->envp = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	while (envp[i] != 0)
+	{
+		if (ft_strncmp(envp[i], "SHLVL", 5) != 0)
+			ministruct->envp[i] = ft_strdup(envp[i]);
+		else
+			ministruct->envp[i] = increment(envp[i]);
+		i ++;
+	}
+	ministruct->envp[i] = 0;
+	realloc_smaller_2d(ministruct, "OLDPWD");
+}
+
 void	loop_mini(t_mini mini)
 {
 	while (mini.finished == 0)
@@ -41,11 +65,12 @@ void	loop_mini(t_mini mini)
 		perma_history(mini.line);
 		add_history(mini.line);
 		mini.arguments = allocate_command(mini.line, &mini, 0);
-		if (mini.argc > 0)
-		{
-			execute(&mini);
-			free_stuff(&mini);
-		}
+//		print_arguments(mini.arguments);
+		 if (mini.argc > 0)
+		 {
+		 	execute(&mini);
+		 	free_stuff(&mini);
+		 }
 		unlink("here_doc.txt");
 	}
 }
