@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:58:31 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/20 17:02:22 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/28 00:21:36 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	execute(t_mini *mini)
 		ft_export(mini);
 	else if (ft_strncmp(mini->arguments[0], "unset", 6) == 0)
 		unset(mini);
-	else if (ft_strncmp(mini->arguments[0], "ls", 3) == 0)
-		ls(mini);
-	else if (ft_strncmp(mini->arguments[0], "clear", 6) == 0)
-		printf("\e[1;1H\e[2J");
+	else
+		else_command(mini);
 }

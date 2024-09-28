@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/09/20 16:58:10 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/28 01:41:59 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../tools/libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/wait.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -48,6 +49,7 @@ typedef struct mini_t
 	char	**arguments;
 	int		finished;
 	int		fdin;
+	int		fdout;
 	int		argc;
 }	t_mini;
 
@@ -60,16 +62,16 @@ void	echo(t_mini *mini, int i);
 void	show_env(t_mini *mini);
 void	change_directory(char *path, t_mini *mini);
 void	show_path(t_mini *mini);
-void	ls(t_mini *mini);
+void	else_command(t_mini *mini);
 void	new_line(void);
 void	ft_export(t_mini *mini);
 
 //UTILS_PIPE
 int		check_for_pipes(char *str);
 void	execute_pipes(t_mini *mini, int i);
-void	execute_wpipes(t_mini *mini, int i);
-void	pipe_check(t_mini *mini, int fdout, int	*i);
+void	pipe_check(t_mini *mini, int *i);
 char	*pipe_cmd(char *line, int *i);
+void	parent_time(char *arg);
 
 //UTILS_REDIRECT
 void	redirect(char *cmd, int fdin, t_mini *mini);

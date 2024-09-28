@@ -6,13 +6,13 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:53 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 18:57:55 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/28 00:24:37 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ls(t_mini *mini)
+void	else_command(t_mini *mini)
 {
 	char	*path;
 	pid_t	pid;

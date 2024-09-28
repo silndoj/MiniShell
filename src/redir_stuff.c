@@ -1,23 +1,25 @@
 #include "minishell.h"
+#include <sys/stat.h>
+#include <unistd.h>
 
 int	input_stuff(t_mini *mini, int *i)
 {
 	int		fdin;
 
-	if (ft_strncmp(mini->arguments[*i], "<<", 3) == 0)
+	fdin = 0;
+//	if (ft_strncmp(mini->arguments[*i], "<<", 3) == 0)
+//	{
+//		mini->fdin = open("here_doc.txt", O_CREAT | O_WRONLY | O_TRUNC, 06444);
+//		mini->fdin = create_here_doc(mini->arguments, *i, fdin);
+//		dup2(fdin, STDIN_FILENO);
+//		close(fdin);
+//	}
+	if (ft_strncmp(mini->arguments[*i + 1], "<", 2) == 0)
 	{
-		mini->fdin = open("here_doc.txt", O_CREAT | O_WRONLY | O_TRUNC, 06444);
-		mini->fdin = create_here_doc(mini->arguments, *i, fdin);
+		fdin = open(mini->arguments[*i + 2], O_RDONLY, S_IRWXU);
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);
-		*i += 2;
-	}
-	else if (ft_strncmp(mini->arguments[*i], "<", 2) == 0)
-	{
-		fdin = open("here_doc.txt", O_CREAT | O_WRONLY | O_TRUNC, 06444);
-		dup2(fdin, STDIN_FILENO);
-		close(fdin);
-		*i += 2;
+//		*i += 3;
 	}
 	return (fdin);
 }
@@ -26,6 +28,7 @@ int	output_stuff(t_mini *mini, int i)
 {
 	int	fdout;
 
+	fdout = 0;
 	if (ft_strncmp(mini->arguments[i + 1], ">", 2) == 0)
 	{
 		fdout = openfile(mini->arguments[i + 2], 1, 0);

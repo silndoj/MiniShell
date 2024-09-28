@@ -44,3 +44,85 @@ export VAR1
 env
 export VAR
 env
+clear
+ls
+cat Makefile > out
+ls
+cat out 
+cat out 
+nvim src/execute.c 
+ls
+cat out 
+clear
+ls
+wc > out 
+ls
+wc > out
+wc > out
+
+
+cat out 
+wc < out
+ls
+wc > out
+clear
+ls
+ls > out
+cat out 
+cat out 
+wc < out 
+clear
+ls
+ls
+cat out 
+wc < out 
+make re
+make re
+wc < out 
+wc < out 
+wc < out 
+cat out 
+wc < out 
+wc < out
+clear
+ls
+cat out 
+wc < out
+ls
+cat out 
+wc > out
+cat out 
+cat out 
+ls > out
+cat out 
+make re
+cat Makefile > out
+cat out 
+ls -la > out
+cat out 
+clear
+ls
+wc < out
+clear
+ls
+cat out 
+wc -l < out
+wc < out
+wc < out | cat
+wc < out | clear
+wc -l < out 
+wc -l < out | wc
+wc -l < out 
+cat out 
+wc < out
+ls
+wc Makefile > out
+cat out 
+wc Makefile > out
+cat out 
+wc < out
+wc < out
+wc < out
+wc < out
+wc < out
+wc < out
