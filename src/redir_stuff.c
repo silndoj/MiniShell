@@ -19,31 +19,35 @@ int	input_stuff(t_mini *mini, int *i)
 		fdin = open(mini->arguments[*i + 2], O_RDONLY, S_IRWXU);
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);
-//		*i += 3;
+		if (mini->arguments[*i + 3])
+			*i += 3;
 	}
 	return (fdin);
 }
 
-int	output_stuff(t_mini *mini, int i)
+int	output_stuff(t_mini *mini, int *i)
 {
 	int	fdout;
 
 	fdout = 0;
-	if (ft_strncmp(mini->arguments[i + 1], ">", 2) == 0)
+	if (ft_strncmp(mini->arguments[*i + 1], ">", 2) == 0)
 	{
-		fdout = openfile(mini->arguments[i + 2], 1, 0);
+		fdout = openfile(mini->arguments[*i + 2], 1, 0);
 		dup2(fdout, STDOUT_FILENO);
+		close(fdout);
+		if (mini->arguments[*i + 3])
+			*i += 3;
 		return (fdout);
 	}
-	if (ft_strncmp(mini->arguments[i + 2], ">", 2) == 0)
+//	if (ft_strncmp(mini->arguments[i + 2], ">", 2) == 0)
+//	{
+//		fdout = openfile(mini->arguments[i + 3], 1, 0);
+//		dup2(fdout, STDOUT_FILENO);
+//		return (fdout);
+//	}
+	if (ft_strncmp(mini->arguments[*i + 1], ">>", 3) == 0)
 	{
-		fdout = openfile(mini->arguments[i + 3], 1, 0);
-		dup2(fdout, STDOUT_FILENO);
-		return (fdout);
-	}
-	if (ft_strncmp(mini->arguments[i + 2], ">>", 3) == 0)
-	{
-		fdout = openfile(mini->arguments[i + 3], 1, 1);
+		fdout = openfile(mini->arguments[*i + 2], 1, 1);
 		dup2(fdout, STDOUT_FILENO);
 		return (fdout);
 	}

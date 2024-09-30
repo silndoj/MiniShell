@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/27 15:12:58 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/29 03:06:57 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void	loop_mini(t_mini mini)
 		perma_history(mini.line);
 		add_history(mini.line);
 		mini.arguments = allocate_command(mini.line, &mini, 0);
-//		print_arguments(mini.arguments);
-		 if (mini.argc > 0)
-		 {
-		 	execute(&mini);
-		 	free_stuff(&mini);
-		 }
+		print_arguments(mini.arguments);
+//		 if (mini.argc > 0)
+//		 {
+//		 	execute(&mini);
+//		 	free_stuff(&mini);
+//		 }
 		unlink("here_doc.txt");
 	}
 }

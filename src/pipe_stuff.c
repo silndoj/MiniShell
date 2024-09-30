@@ -37,7 +37,7 @@ void	pipe_check(t_mini *mini, int *i)
 	if (ft_strncmp(mini->arguments[*i], "|", 1) == 0)
 	{
 
-		redirect(mini->arguments[*i + 1], mini->fdout, mini);
+//		redirect(mini->arguments[*i + 1], mini->fdout, mini);
 		exec(mini->arguments[*i + 1], mini);
 		*i += 2;
 	}
@@ -54,6 +54,13 @@ void	pipe_check(t_mini *mini, int *i)
 	}
 }
 
+int	check_next(char sign)
+{
+	if (sign == '>')
+		return (1);
+	return (0);
+}
+
 void	execute_pipes(t_mini *mini, int i)
 {
 	int		fdout;
@@ -64,8 +71,10 @@ void	execute_pipes(t_mini *mini, int i)
 	{
 		while (mini->arguments[i] != 0)
 		{
-			mini->fdin = input_stuff(mini, &i);
-			mini->fdout = output_stuff(mini, i);
+			if (check_next(mini->arguments[i + 1][0]))
+				mini->fdout = output_stuff(mini, &i);
+			else
+				mini->fdin = input_stuff(mini, &i);
 			pipe_check(mini, &i);
 			if (fdout != 1)
 				i += 2;

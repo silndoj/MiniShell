@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/09/28 01:41:59 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/09/29 02:49:16 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*rd_out(char *line, int *i);
 char	*rd_in(char *line, int *i);
 
 //INPUT_OUTPUT
-int		output_stuff(t_mini *mini, int i);
+int		output_stuff(t_mini *mini, int *i);
 int		input_stuff(t_mini *mini, int *i);
 
 //UTILS
