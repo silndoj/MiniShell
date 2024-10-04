@@ -27,6 +27,31 @@ void	parse_pipe_cmd(char **cmd, int *i, char **p)
 	*i += 1;
 }
 
+void	redirect_out(char *cmd, int fdin, t_mini *mini)
+{
+	pid_t	pid;
+	int		pipefd[2];
+
+	pipe(pipefd);
+	pid = fork();
+	if (pid)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDOUT_FILENO);
+		close(pipefd[0]);
+		close(pipefd[1]);
+	}
+	else
+	{
+		close(pipefd[0]);
+		if (fdin == 1)
+			dup2(pipefd[1], STDIN_FILENO);
+		close(pipefd[1]);
+		close(pipefd[0]);
+		exec(cmd, mini);
+	}
+}
+
 void	pipe_check(t_mini *mini, int *i)
 {
 //	if (ft_strncmp(mini->arguments[*i], "|", 1) == 0
@@ -36,10 +61,8 @@ void	pipe_check(t_mini *mini, int *i)
 //	}
 	if (ft_strncmp(mini->arguments[*i], "|", 1) == 0)
 	{
-
-//		redirect(mini->arguments[*i + 1], mini->fdout, mini);
-		exec(mini->arguments[*i + 1], mini);
-		*i += 2;
+		redirect_out(mini->arguments[*i + 1], mini->fdin, mini);
+		*i += 1;
 	}
 	else if (ft_strncmp(mini->arguments[*i + 1], "|", 1) == 0
 		&& *i < mini->argc - 2)
@@ -63,7 +86,6 @@ int	check_next(char sign)
 
 void	execute_pipes(t_mini *mini, int i)
 {
-	int		fdout;
 	pid_t	pid;
 
 	pid = fork();
@@ -75,14 +97,15 @@ void	execute_pipes(t_mini *mini, int i)
 				mini->fdout = output_stuff(mini, &i);
 			else
 				mini->fdin = input_stuff(mini, &i);
+			if (mini->fdin == -1)
+				exit(0);
 			pipe_check(mini, &i);
-			if (fdout != 1)
-				i += 2;
+		//	if (mini->fdout != 1)
+			i += 2;
 		}
 		exit(0);
 	}
 	waitpid(pid, &mini->exitcode, 0);
-//	parent_time(mini->arguments[i - 1]);
 }
 
 int	check_for_pipes(char *str)

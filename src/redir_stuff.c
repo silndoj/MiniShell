@@ -17,10 +17,13 @@ int	input_stuff(t_mini *mini, int *i)
 	if (ft_strncmp(mini->arguments[*i + 1], "<", 2) == 0)
 	{
 		fdin = open(mini->arguments[*i + 2], O_RDONLY, S_IRWXU);
+		if (fdin == -1)
+			return -1;
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);
 		if (mini->arguments[*i + 3])
 			*i += 3;
+		return (fdin);
 	}
 	return (fdin);
 }

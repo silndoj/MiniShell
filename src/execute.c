@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:58:31 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/28 00:21:36 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:25:09 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	execute(t_mini *mini)
 	i = 0;
 	if (check_for_pipes(mini->line) == 0)
 		execute_pipes(mini, 0);
-//	else
-//		execute_wpipes(mini, 0);
 	else if (ft_strncmp(mini->arguments[0], "env", 4) == 0)
 		show_env(mini);
 	else if (ft_strchr(mini->arguments[0], '=') != 0)

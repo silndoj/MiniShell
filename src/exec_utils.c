@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:53 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/28 00:24:37 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:18:13 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	redirect(char *cmd, int fdout, t_mini *mini)
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
+		close(pipefd[1]);
 	}
 	else
 	{
@@ -69,6 +70,7 @@ void	redirect(char *cmd, int fdout, t_mini *mini)
 		if (fdout == 1)
 			dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
+		close(pipefd[0]);
 		exec(cmd, mini);
 	}
 }
