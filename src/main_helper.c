@@ -6,51 +6,52 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/04 18:56:25 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 21:04:22 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_arguments(char **arguments)
-{
-	int	i;
+int	g_pipe_count;
 
-	i = 0;
-	while (arguments[i] != 0)
-	{
-		printf("%s\n", arguments[i]);
-		fflush(stdout);
-		i ++;
-	}
+static void	run(char ***commands, bool backgr)
+{
+	static int	i;
+
+	i = -1;
+	while (commands[++i])
+		if (commands[i])
+			execute(commands[i], backgr, i);
+	while (i-- > 0)
+		free_2dchar(commands[i]);
+	free(commands);
 }
 
-void	init(t_mini *ministruct, char **envp)
+static void	check(char *mode, int count, char **arguments)
 {
-	int	i;
+	if (count == 1)
+		*mode = INTERACTIVE;
+	else if (count == 3 && !ft_strncmp(arguments[1], "-c", 2))
+		*mode = COMMANDLINE;
+	else
+		exit_error("check");
+}
 
-	i = 0;
-	read_perma_history();
-	ministruct->nr_var = 0;
-	ministruct->argc = 0;
-	while (envp[i] != 0)
-		i ++;
-	ministruct->envp = malloc((i + 1) * sizeof(char *));
-	i = 0;
-	while (envp[i] != 0)
-	{
-		if (ft_strncmp(envp[i], "SHLVL", 5) != 0)
-			ministruct->envp[i] = ft_strdup(envp[i]);
-		else
-			ministruct->envp[i] = increment(envp[i]);
-		i ++;
-	}
-	ministruct->envp[i] = 0;
-	realloc_smaller_2d(ministruct, "OLDPWD");
+static void	parse_and_run(char *line)
+{
+	char		***commands;
+	static bool	backgr;
+
+	backgr = line[ft_strlen(line) - 1] == '&';
+	commands = parse(line);
+	if (commands)
+		run(commands, backgr);
 }
 
 void	loop_mini(t_mini mini)
 {
+	char	mode;
+
 	while (mini.finished == 0)
 	{
 		mini.argc = 0;
@@ -64,13 +65,7 @@ void	loop_mini(t_mini mini)
 		}
 		perma_history(mini.line);
 		add_history(mini.line);
-		mini.arguments = allocate_command(mini.line, &mini, 0);
-//		print_arguments(mini.arguments);
-		 if (mini.argc > 0)
-		 {
-		 	execute(&mini);
-		 	free_stuff(&mini);
-		 }
+		parse_and_run(mini.line);
 		unlink("here_doc.txt");
 	}
 }

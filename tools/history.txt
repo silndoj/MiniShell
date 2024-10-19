@@ -126,3 +126,94 @@ wc < out
 wc < out
 wc < out
 wc < out
+clear
+ls
+ls -la > out
+ls
+cat out 
+ls -la > out | wc
+clear
+ls
+grep Make < out
+grep Make < out | wc
+clear
+ls
+ls -la > server
+ls
+cat server 
+grep src < server
+grep src < server | wc
+grep src < server | wc > out
+cat out 
+
+
+
+
+
+
+
+celar
+clear
+clear
+ls
+ls -la
+grep make < out
+ls -la > out
+cat out 
+grep t < out
+grep Make < out
+grep Make < out | wc
+grep Make < out
+ls -la > out
+grep Make < out
+ls -la > out
+grep Make < out
+ls
+ls -la > txt
+ls
+cat txt
+grep tools < txt | wc > test | cat txt | grep src > test1
+ls
+cat test1
+cat test
+clear
+ls
+ls
+ls -la
+ls -la | grep minishell 
+ls -la | grep minishell | wc
+ls -la | grep minishell | wc > out
+ls
+cat out 
+clear
+ls
+ls -la | grep minishell | wc > out | cat Makefile 
+ls -la | grep minishell | wc > out2 | cat Makefile > out1
+ls
+cat out1
+cat out2
+clear
+ls
+rm -rf out out1 out2
+clear
+ls
+ls -la | grep minishell | wc > out | grep make < Makefile 
+ls
+ls
+ls
+ls
+ls -la
+ls
+ls -la > out
+ls
+cat out 
+grep 17 < out
+grep 17: < out
+grep 17: < out | wc
+grep 17: < out | wc > out2
+ls
+cat out2
+clear
+ls
+grep 17: < out >> out2
+cat out2

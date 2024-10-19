@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:01:47 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/27 15:11:55 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:53:02 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	save_var(t_mini *mini, int i)
 	size_t		j;
 	char		*name;
 
-	while (mini->arguments[0][i] != '=')
+	while (*mini->commands[0][i] != '=')
 		i ++;
-	name = var_name(mini->arguments[0], i);
+	name = var_name(*mini->commands[0], i);
 	j = search_var(mini, name);
 	if (j != 0)
 	{
 		free(mini->variables[j - 1].value);
 		free(name);
-		mini->variables[j - 1].value = var_value(mini->arguments[0], i);
+		mini->variables[j - 1].value = var_value(*mini->commands[0], i);
 		return ;
 	}
 	j = -1;
@@ -62,9 +62,8 @@ void	save_var(t_mini *mini, int i)
 	varlist = malloc((mini->nr_var + 1) * sizeof(t_var));
 	while (++ j < mini->nr_var)
 		varlist[j] = mini->variables[j];
-	varlist[j].name = var_name(mini->arguments[0], i);
-	varlist[j].value = var_value(mini->arguments[0], i);
-//	free(mini->variables);
+	varlist[j].name = var_name(*mini->commands[0], i);
+	varlist[j].value = var_value(*mini->commands[0], i);
 	mini->variables = varlist;
 	mini->nr_var ++;
 }

@@ -14,14 +14,15 @@ SRCS_MAIN			= 	src/main.c				\
 						src/history_stuff.c 	\
 						src/var_stuff.c 		\
 						src/export_builtin.c 	\
-						src/execute.c			\
+						src/redirect1.c			\
+						src/utility1.c			\
+						src/execute1.c			\
+						src/parse1.c			\
+						src/pipe1.c				\
 						src/exec_utils.c 		\
 						src/exec_utils2.c 		\
 						src/free.c				\
-						src/alloc_stuff.c		\
 						src/pipe_stuff.c		\
-						src/pipe_stuff2.c		\
-						src/redir_stuff.c		\
 						src/signals.c			\
 
 LIBFT 				=	tools/libft/libft.a

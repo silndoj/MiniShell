@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:31 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 18:57:43 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:49:29 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	show_env(t_mini *mini)
 	int	i;
 
 	i = -1;
-	if (ft_strncmp(mini->arguments[1], "echo", 5) == 0)
+	if (ft_strncmp(*mini->commands[1], "echo", 5) == 0)
 	{
 		echo(mini, 1);
 		return ;
 	}
-	if (ft_strncmp(mini->arguments[1], "pwd", 4) == 0)
+	if (ft_strncmp(*mini->commands[1], "pwd", 4) == 0)
 	{
 		show_path(mini);
 		return ;
@@ -63,12 +63,12 @@ void	echo_print(char *string, t_mini *mini)
 
 void	echo(t_mini *mini, int i)
 {
-	while (mini->arguments[++ i] != 0)
+	while (*mini->commands[++ i] != 0)
 	{
-		echo_print(mini->arguments[i], mini);
+		echo_print(*mini->commands[i], mini);
 		printf(" ");
 	}
-	if (ft_strncmp(mini->arguments[1], "-n", 3) == 0)
+	if (ft_strncmp(*mini->commands[1], "-n", 3) == 0)
 		printf("\n");
 	mini->exitstatus = 0;
 }

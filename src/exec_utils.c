@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:53 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/01 18:18:13 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:54:06 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	else_command(t_mini *mini)
 	pid = fork();
 	if (pid == 0)
 	{
-		path = find_path(mini->envp, mini->arguments[0]);
-		execve(path, mini->arguments, mini->envp);
+		path = find_path(mini->envp, *mini->commands[0]);
+		execve(path, *mini->commands, mini->envp);
 	}
 	waitpid(pid, NULL, 0);
 }
@@ -37,8 +37,8 @@ void	unset(t_mini *mini)
 		return ;
 	while (++ i < mini->argc)
 	{
-		j = check_envp(mini, mini->arguments[i]);
-		string = ft_strjoin(mini->arguments[i], "=");
+		j = check_envp(mini, *mini->commands[i]);
+		string = ft_strjoin(*mini->commands[i], "=");
 		if (j == 0)
 		{
 			free(string);
@@ -47,30 +47,5 @@ void	unset(t_mini *mini)
 		else
 			realloc_smaller_2d(mini, string);
 		free(string);
-	}
-}
-
-void	redirect(char *cmd, int fdout, t_mini *mini)
-{
-	pid_t	pid;
-	int		pipefd[2];
-
-	pipe(pipefd);
-	pid = fork();
-	if (pid)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-	}
-	else
-	{
-		close(pipefd[0]);
-		if (fdout == 1)
-			dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		close(pipefd[0]);
-		exec(cmd, mini);
 	}
 }

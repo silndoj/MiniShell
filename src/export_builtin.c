@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:58:49 by silndoj           #+#    #+#             */
-/*   Updated: 2024/09/14 18:58:51 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:53:17 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_export(t_mini *mini)
 		return ;
 	while (++ i < mini->argc)
 	{
-		j = search_var(mini, mini->arguments[i]);
+		j = search_var(mini, *mini->commands[i]);
 		if (j != 0)
 		{
 			string = ft_strjoin(mini->variables[j - 1].name, "=");

@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/10/01 18:29:23 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:58:04 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <string.h>
+# include <unistd.h>
+# include <stdbool.h>
+
+# define ERROR -1
+# define INTERACTIVE 0
+# define COMMANDLINE 1
+# define CHILD 0
+# define CURRENT 0
+# define PREVIOUS 1
+# define READ 0
+# define WRITE 1
+# define TRUNCATE 1
+# define APPEND 2
+
+typedef int	t_io[2];
+extern int	g_pipe_count;
 
 typedef struct var_t
 {
@@ -46,16 +63,28 @@ typedef struct mini_t
 	char	**envp;
 	t_var	*variables;
 	size_t	nr_var;
-	char	**arguments;
+	char	***commands;
 	int		finished;
 	int		fdin;
 	int		fdout;
 	int		argc;
 }	t_mini;
 
+bool	redirect_in(char **arguments);
+bool	redirect_out(char **arguments);
+void	execute(char **command, bool backgr, int ic);
+char	***parse(char *line);
+void	free_strings(char **strings);
+void	exit_error(const char *message);
+bool	connect(t_io pipes[2], int ic);
+void	close_(t_io pipes[2], int ic);
+void	alternate(int **pipes);
+void	erase_from(char **strings, size_t count);
+void	*xmalloc(size_t size);
+
 //EXEC_FILES
 void	exec(char *cmd, t_mini *mini);
-void	execute(t_mini *mini);
+void	execute1(t_mini *mini);
 void	unset(t_mini *mini);
 void	exit_programm(t_mini *mini);
 void	echo(t_mini *mini, int i);
@@ -65,23 +94,6 @@ void	show_path(t_mini *mini);
 void	else_command(t_mini *mini);
 void	new_line(void);
 void	ft_export(t_mini *mini);
-
-//UTILS_PIPE
-int		check_for_pipes(char *str);
-void	execute_pipes(t_mini *mini, int i);
-void	pipe_check(t_mini *mini, int *i);
-char	*pipe_cmd(char *line, int *i);
-void	parent_time(char *arg);
-
-//UTILS_REDIRECT
-void	redirect(char *cmd, int fdin, t_mini *mini);
-int		openfile(char *filename, int mode, int is_here_doc);
-char	*rd_out(char *line, int *i);
-char	*rd_in(char *line, int *i);
-
-//INPUT_OUTPUT
-int		output_stuff(t_mini *mini, int *i);
-int		input_stuff(t_mini *mini, int *i);
 
 //UTILS
 int		check_envp(t_mini *mini, char *argument);
