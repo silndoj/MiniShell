@@ -1,9 +1,3 @@
-Got it! Based on the subject you provided, it looks like you're working on a project to create a minimal shell called **MiniShell**, with specific functionalities outlined.
-
-I can help you structure a `README.md` file for this project. Here's a draft based on the information you've shared:
-
----
-
 # MiniShell
 
 MiniShell is a simplified implementation of a Unix shell. It mimics the behavior of bash with support for basic shell functionality, including pipelines, redirection, built-in commands, and environment variables.
