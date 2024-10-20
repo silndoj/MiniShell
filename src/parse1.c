@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:30:08 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/20 03:38:56 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 17:40:58 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ char	***parse(char *line)
 		commands[count] = ft_split(splitted[count], ' ');
 	free_2dchar(splitted);
 	free(line);
-//	print_arguments(*commands);
 	return (commands);
 }

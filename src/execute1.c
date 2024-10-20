@@ -6,15 +6,17 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:04:20 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 21:01:36 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 17:39:56 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 
-static bool	fork_pipe_redirect(char **command, t_io pipes[2], int ic)
+static bool	redirect(char **command, t_io pipes[2], int ic, pid_t *pid)
 {
-	if (fork() == CHILD)
+	*pid = fork();
+	if (*pid == CHILD)
 		if (redirect_in(command) && connect(pipes, ic) && redirect_out(command))
 			return (true);
 	return (false);
@@ -42,24 +44,23 @@ void	execute1(t_mini *mini)
 		else_command(mini);
 }
 
-void	execute(char **command, bool backgr, int ic)
+void	execute(char **command, int ic)
 {
 	static t_io	pipes[2];
-	bool		is_child_process;
+	bool		is_child;
 	int			i;
+	pid_t		pid;
 
 	i = 0;
 	if (g_pipe_count && pipe(pipes[CURRENT]) == ERROR)
 		exit_error("pipe");
-	is_child_process = fork_pipe_redirect(command, pipes, ic);
-	if (is_child_process)
+	is_child = redirect(command, pipes, ic, &pid);
+	if (is_child)
 	{
 		execvp(command[0], command);
 		exit_error("execvp");
 	}
-	if (!backgr)
-		while (wait(NULL) >= 0)
-			i = 0;
+	waitpid(pid, NULL, 0);
 	close_(pipes, ic);
 	alternate((int **)pipes);
 }

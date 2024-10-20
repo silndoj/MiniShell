@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/10/18 20:58:04 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 17:16:33 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct mini_t
 
 bool	redirect_in(char **arguments);
 bool	redirect_out(char **arguments);
-void	execute(char **command, bool backgr, int ic);
+void	execute(char **command, int ic);
 char	***parse(char *line);
 void	free_strings(char **strings);
 void	exit_error(const char *message);

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/20 03:54:15 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 17:17:33 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	g_pipe_count;
 
-static void	run(char ***commands, bool backgr)
+static void	run(char ***commands)
 {
 	static int	i;
 
 	i = -1;
 	while (commands[++i])
 		if (commands[i])
-			execute(commands[i], backgr, i);
+			execute(commands[i], i);
 	while (i-- > 0)
 		free_2dchar(commands[i]);
 	free(commands);
@@ -30,12 +30,10 @@ static void	run(char ***commands, bool backgr)
 static void	parse_and_run(char *line)
 {
 	char		***commands;
-	static bool	backgr;
 
-	backgr = line[ft_strlen(line) - 1] == '&';
 	commands = parse(line);
 	if (commands)
-		run(commands, backgr);
+		run(commands);
 }
 
 void	loop_mini(t_mini mini)
