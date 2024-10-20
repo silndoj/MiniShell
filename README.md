@@ -79,5 +79,3 @@ ls -l | grep minishell
 This project uses external functions such as `readline`, `fork`, `execve`, and others. For a full list, see the project specification.
 
 ---
-
-You can adjust the specific instructions or add more usage examples if needed!
