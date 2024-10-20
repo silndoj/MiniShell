@@ -6,22 +6,11 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:07:23 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/17 19:50:39 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 03:35:32 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	next_redirect_in(char ***arguments)
-{
-	while (**arguments)
-	{
-		if (!ft_strncmp(**arguments, "<", 2))
-			return (true);
-		(*arguments)++;
-	}
-	return (false);
-}
 
 static bool	next_redirect_out(char ***arguments)
 {
@@ -33,19 +22,6 @@ static bool	next_redirect_out(char ***arguments)
 		(*arguments)++;
 	}
 	return (false);
-}
-
-static void	redirect_in_from(const char *filename)
-{
-	static int	input;
-
-	if (input)
-		close(input);
-	input = open(filename, O_RDONLY, 0777);
-	if (input == ERROR)
-		exit_error("open");
-	dup2(input, STDIN_FILENO);
-	close(input);
 }
 
 static void	redirect_out_to(const char *filename, int option)
@@ -62,22 +38,6 @@ static void	redirect_out_to(const char *filename, int option)
 		exit_error("open");
 	dup2(output, STDOUT_FILENO);
 	close(output);
-}
-
-bool	redirect_in(char **arguments)
-{
-	char	*filename;
-
-	while (next_redirect_in(&arguments))
-	{
-		filename = strdup(arguments[1]);
-		if (!filename)
-			exit_error("redirect_in");
-		redirect_in_from(filename);
-		erase_from(arguments, 2);
-		free(filename);
-	}
-	return (true);
 }
 
 bool	redirect_out(char **arguments)

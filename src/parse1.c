@@ -6,14 +6,13 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:30:08 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 20:29:32 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 03:38:56 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
-static size_t	count_(char **strings)
+size_t	count_s(char **strings)
 {
 	size_t	count;
 
@@ -23,22 +22,6 @@ static size_t	count_(char **strings)
 	return (count);
 }
 
-static void	skip_delimiters(char const *s, char d, size_t *current)
-{
-	while (s[*current] && s[*current] == d)
-		(*current)++;
-}
-
-static size_t	word_length(char const *s, char d, size_t *current)
-{
-	size_t	length;
-
-	length = 0;
-	while (s[*current] && (s[(*current)++] != d || !d))
-		length++;
-	return (length);
-}
-
 char	***parse(char *line)
 {
 	char			***commands;
@@ -46,7 +29,7 @@ char	***parse(char *line)
 	size_t			count;
 
 	splitted = ft_split(line, '|');
-	count = count_(splitted);
+	count = count_s(splitted);
 	g_pipe_count = count - 1;
 	commands = malloc(sizeof(char **) * (count + 1));
 	commands[count] = NULL;
@@ -54,6 +37,6 @@ char	***parse(char *line)
 		commands[count] = ft_split(splitted[count], ' ');
 	free_2dchar(splitted);
 	free(line);
-	//print_arguments(*commands);
+//	print_arguments(*commands);
 	return (commands);
 }

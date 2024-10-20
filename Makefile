@@ -14,7 +14,8 @@ SRCS_MAIN			= 	src/main.c				\
 						src/history_stuff.c 	\
 						src/var_stuff.c 		\
 						src/export_builtin.c 	\
-						src/redirect1.c			\
+						src/redirect_in.c		\
+						src/redirect_out.c		\
 						src/utility1.c			\
 						src/execute1.c			\
 						src/parse1.c			\

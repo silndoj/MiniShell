@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 21:04:22 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 03:54:15 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ static void	run(char ***commands, bool backgr)
 	while (i-- > 0)
 		free_2dchar(commands[i]);
 	free(commands);
-}
-
-static void	check(char *mode, int count, char **arguments)
-{
-	if (count == 1)
-		*mode = INTERACTIVE;
-	else if (count == 3 && !ft_strncmp(arguments[1], "-c", 2))
-		*mode = COMMANDLINE;
-	else
-		exit_error("check");
 }
 
 static void	parse_and_run(char *line)

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:11:37 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 16:23:48 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/20 02:56:04 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_error(const char *source)
 {
 	perror(source);
-	_exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 static void	pull_back(char **arguments)
