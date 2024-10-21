@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/10/20 20:26:10 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/21 03:49:18 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@
 # define TRUNCATE 1
 # define APPEND 2
 
-typedef int	t_io[2];
+//GLOBAL_VARIABLE
 extern int	g_pipe_count;
+
+//int pipe[2][2]
+typedef int	t_io[2];
 
 typedef struct var_t
 {
@@ -65,8 +68,6 @@ typedef struct mini_t
 	size_t	nr_var;
 	char	***commands;
 	int		finished;
-	int		fdin;
-	int		fdout;
 	int		argc;
 }	t_mini;
 
@@ -74,13 +75,11 @@ bool	redirect_in(char **arguments);
 bool	redirect_out(char **arguments);
 void	execute(t_mini *mini, int ic);
 char	***parse(char *line);
-void	free_strings(char **strings);
 void	exit_error(const char *message);
 bool	connect(t_io pipes[2], int ic);
 void	close_(t_io pipes[2], int ic);
 void	alternate(int **pipes);
 void	erase_from(char **strings, size_t count);
-void	*xmalloc(size_t size);
 
 //EXEC_FILES
 void	exec(char *cmd, t_mini *mini);
@@ -92,23 +91,15 @@ void	show_env(t_mini *mini);
 void	change_directory(char *path, t_mini *mini);
 void	show_path(t_mini *mini);
 void	else_command(t_mini *mini);
-void	new_line(void);
 void	ft_export(t_mini *mini);
 
 //UTILS
 int		check_envp(t_mini *mini, char *argument);
 char	*find_path(char *envp[], char *cmd);
-char	*ft_remove_space(char *cmd);
-char	*remove_end_spaces(char *string);
 char	*increment(char *string);
 void	command_check(char **arg, int i, int fd, t_char *cset);
 int		create_here_doc(char **arguments, int i, int fdin);
-char	*ft_str_safe(char **cmd, char c, char a, char b);
 char	*ft_strjoin2(char *s1, char *s2);
-void	ft_short(int *i, char **commands, char **cmd, char c);
-int		count_parts(char *cmd);
-char	**cmd_in_folder(char *cmd);
-char	*sign_check(char *line, int *i);
 
 //INIT
 void	print_arguments(char **arguments);
@@ -132,10 +123,8 @@ void	read_perma_history(void);
 void	perma_history(char *cmdline);
 
 //PARSING
-char	**allocate_command(char *cmd, t_mini *mini, int i);
 int		search_var(t_mini *mini, char *string);
 void	save_var(t_mini *mini, int i);
 char	*var_value(char *string, int i);
-void	arg_read(char *cmd, char **commands, int i, int size);
 
 #endif

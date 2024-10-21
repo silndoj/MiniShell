@@ -6,21 +6,23 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:53 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 20:54:06 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/21 03:34:09 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	else_command(t_mini *mini)
 {
 	char	*path;
 	pid_t	pid;
 
+	path = malloc(1024);
 	pid = fork();
 	if (pid == 0)
 	{
-		path = find_path(mini->envp, *mini->commands[0]);
+		path = getcwd(path, 1024);
 		execve(path, *mini->commands, mini->envp);
 	}
 	waitpid(pid, NULL, 0);

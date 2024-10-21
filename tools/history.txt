@@ -1235,3 +1235,769 @@ cd ls
 cd ..
 cd something
 pwd
+ls
+ls -la
+ls -la | wc
+grep make < Makefile
+grep make < Makefile | grep tools
+grep make < Makefile | grep fclean
+grep make < Makefile | grep fclean | wc
+grep make < Makefile | grep fclean | wc > out
+ls
+cat out 
+grep make < Makefile | grep fclean | wc >> out
+cat out 
+grep make < Makefile | grep fclean | wc > out
+cat out 
+grep make << Makefile | grep fclean | wc > out
+cat << EOF
+ls
+ls
+echo hello
+echo hello world
+echo /home/tarazh /home/tarazh tarazh
+ls -l
+ls -la
+echo 0
+bin/ls filethatdoesntexist
+expr 0 0
+echo 0
+ls
+ls -la
+echo 'USER'
+echo tarazh
+env | grep USER_ZD
+env | grep USER=
+export | grep USER
+export new
+export | grep new
+export new=HELLO
+export | grep new
+export hello=home/wazaap
+unset new
+export | grep new
+unset home/wazaap
+export | grep hello
+unset hello
+export | grep hello
+cd ls
+cd ..
+cd something
+pwd
+cd minishell
+cd ..
+pwd
+cd minishell
+dsbksdgbksdghsd
+echo tarazh
+export USER=NEWUSER
+echo NEWUSER
+cd test1
+echo Hello World
+echo Hello World
+echo 'hello world'
+echo 'hello' world
+echo 0
+echo /home/tarazh
+echo /home/tarazh/Core24/test2
+echo NEWUSER
+echo /bin/zsh
+echo Date is: Hën 21 Tet 2024 02:57:05.PD CEST | tee date_file | cut -d ' ' -f 1-3
+rm date_file
+echo total 0 | tee ls_file | wc -l
+echo tarazh | tee user_file | xargs echo User is
+echo 2024-10-21 | tee date_file | cut -d '-' -f 1
+echo 6.8.0-47-generic | tee kernel_file | cut -d '.' -f 1
+rm ls_file user_file date_file kernel_file
+cd ..
+cd test1
+export new
+export | grep new
+env | grep new
+unset new
+export new
+env | grep new
+export new=/tmp/new
+env | grep new
+env | grep new
+export VAR1=Hello
+export VAR2=World
+export | grep VAR
+env | grep VAR
+echo Hello | grep VAR1 > file1
+echo World | grep VAR2 > file1
+unset VAR1
+export | grep VAR1
+env | grep VAR1
+export VAR1=Hello_Again
+env | grep VAR1
+cat file1
+cat file2
+rm file1 file2
+export new=/tmp/new
+export | grep new | tee file1
+cat file1
+rm file1
+export USER_VAR1=Test1 USER_VAR2=Test2
+export | grep USER_VAR
+env | grep USER_VAR1
+env | grep USER_VAR2
+echo Test1 | grep USER_VAR1 > file1
+echo Test2 | grep USER_VAR2 > file2
+cat file1
+cat file2
+unset USER_VAR1
+export | grep USER_VAR1
+env | grep USER_VAR1
+rm file1 file2
+export TMP_VAR1=Variable1 TMP_VAR2=Variable2
+export | grep TMP_VAR
+env | grep TMP_VAR1
+env | grep TMP_VAR2
+echo Variable1 | grep TMP_VAR1 > file1
+echo Variable2 | grep TMP_VAR2 > file2
+unset TMP_VAR1 TMP_VAR2
+export | grep TMP_VAR
+env | grep TMP_VAR
+rm file1 file2 file3
+echo  | cat > file1 | wc -w >file2
+cat file1
+cat file2
+unset SYS_INFO
+export | grep SYS_INFO
+env | grep SYS_INFO
+rm file1 file2 file3 file4
+export COMBINED_VAR=silndoj_tarazh
+echo silndoj_tarazh | grep COMBINED_VAR > file1
+cat file1
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+unset COMBINED_VAR
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+rm file1
+export LOAD_AVG=0,79
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+echo 0,79 | cat > load_avg_file
+cat load_avg_file
+unset LOAD_AVG
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+rm load_avg_file
+cd ..
+cd test1
+ls -la >file1>file2>file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la >file4 >file5 >file6 file1 file2 file3
+cat file1
+cat file4
+cat file5
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Hello World | tee file1 file2 file3
+grep Hello file1
+grep World file2
+grep ! file3
+ls -la >file1 >file2 >file3
+grep ls file1
+grep total file2
+grep . file3
+rm file1 file2 file3
+date >file1
+whoami >file2
+ls -la file1 file2 file3
+paste file1 file2 file3 >file4
+ls -la file4
+rm file1 file2 file3 file4
+echo Test Case 6 | tee file1 | tee file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+ls -la >file3
+ls -la >file1 >file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+rm file1 file2 file3 file4
+echo Complex case | tee file1 file2 | grep Complex >file3
+cat file1
+cat file2
+cat file3
+ls -l >file3
+tail -n 1 file3
+rm file1 file2 file3
+hostname >file1
+uname -a >file2
+who >file3
+paste file1 file2 >file4
+paste file3 file4 >file5
+ls -la >file4 >file5
+tail -n 2 file4
+tail -n 3 file5
+rm file1 file2 file3 file4 file5
+df -h >file1
+free -m >file2
+uptime >file3
+cat file1 file2 >file4
+cat file3 file4 >file5
+ls -la >file5
+ls -a file1 file2 file3 file4 file5 | cat >file6
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Final Case | tee file1 | tee file2 | tee file3 >file4
+grep Final file1 file2 file3 file4
+ls -la file1 file2 file3 file4
+ls -l >file4
+cat file4
+rm file1 file2 file3 file4
+ls -la | wc -c | cat | ls -la > file1 > file2
+cat file1
+cat file2
+ls -la | < file1 cat > file3
+cat file3
+ls -la | < file1 cat > file4
+cat file4
+ls -la | wc -la > file1 | ls > file2 | ls -a > file3 | ls -a > file4 | ls -a > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -la | grep test | sort | uniq | tee file1 | wc -l > file2 | cat > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la | grep test | sort | ls -la > file1
+< file1 cat | wc -c > file2 
+ls -la | ehco hello | cat file2 > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la > file1
+ls -l > file2
+< file1 grep test | sort | tee file3 | < file2 wc -c > file4 | cat > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -a > file1 | date > file2 | ls -a > file3 | cat file1 file2 file3 > file4 
+cat file1
+cat file2
+cat file3
+cat file4
+ls -a | wc -c | cat | ls -a > file1
+< file1 cat > file5 | < file2 cat > file6 | < file3 cat > file7
+cat file5
+cat file6
+cat file7
+cd ..
+test
+ls
+clear
+ls
+ls
+ls
+echo hello
+echo hello world
+echo /home/tarazh /home/tarazh tarazh
+ls -l
+ls -la
+echo 0
+bin/ls filethatdoesntexist
+expr 0 0
+echo 0
+ls
+ls -la
+echo 'USER'
+echo tarazh
+env | grep USER_ZD
+env | grep USER=
+export | grep USER
+export new
+export | grep new
+export new=HELLO
+export | grep new
+export hello=home/wazaap
+unset new
+export | grep new
+unset home/wazaap
+export | grep hello
+unset hello
+export | grep hello
+cd ls
+cd ..
+cd something
+pwd
+cd minishell
+cd ..
+pwd
+cd minishell
+dsbksdgbksdghsd
+echo tarazh
+export USER=NEWUSER
+echo NEWUSER
+cd test1
+echo Hello World
+echo Hello World
+echo 'hello world'
+echo 'hello' world
+echo 0
+echo /home/tarazh
+echo /home/tarazh/Core24/test2
+echo NEWUSER
+echo /bin/zsh
+echo Date is: Hën 21 Tet 2024 03:35:47.PD CEST | tee date_file | cut -d ' ' -f 1-3
+rm date_file
+echo total 0 | tee ls_file | wc -l
+echo tarazh | tee user_file | xargs echo User is
+echo 2024-10-21 | tee date_file | cut -d '-' -f 1
+echo 6.8.0-47-generic | tee kernel_file | cut -d '.' -f 1
+rm ls_file user_file date_file kernel_file
+cd ..
+cd test1
+export new
+export | grep new
+env | grep new
+unset new
+export new
+env | grep new
+export new=/tmp/new
+env | grep new
+env | grep new
+export VAR1=Hello
+export VAR2=World
+export | grep VAR
+env | grep VAR
+echo Hello | grep VAR1 > file1
+echo World | grep VAR2 > file1
+unset VAR1
+export | grep VAR1
+env | grep VAR1
+export VAR1=Hello_Again
+env | grep VAR1
+cat file1
+cat file2
+rm file1 file2
+export new=/tmp/new
+export | grep new | tee file1
+cat file1
+rm file1
+export USER_VAR1=Test1 USER_VAR2=Test2
+export | grep USER_VAR
+env | grep USER_VAR1
+env | grep USER_VAR2
+echo Test1 | grep USER_VAR1 > file1
+echo Test2 | grep USER_VAR2 > file2
+cat file1
+cat file2
+unset USER_VAR1
+export | grep USER_VAR1
+env | grep USER_VAR1
+rm file1 file2
+export TMP_VAR1=Variable1 TMP_VAR2=Variable2
+export | grep TMP_VAR
+env | grep TMP_VAR1
+env | grep TMP_VAR2
+echo Variable1 | grep TMP_VAR1 > file1
+echo Variable2 | grep TMP_VAR2 > file2
+unset TMP_VAR1 TMP_VAR2
+export | grep TMP_VAR
+env | grep TMP_VAR
+rm file1 file2 file3
+echo  | cat > file1 | wc -w >file2
+cat file1
+cat file2
+unset SYS_INFO
+export | grep SYS_INFO
+env | grep SYS_INFO
+rm file1 file2 file3 file4
+export COMBINED_VAR=silndoj_tarazh
+echo silndoj_tarazh | grep COMBINED_VAR > file1
+cat file1
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+unset COMBINED_VAR
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+rm file1
+export LOAD_AVG=0,28
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+echo 0,28 | cat > load_avg_file
+cat load_avg_file
+unset LOAD_AVG
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+rm load_avg_file
+cd ..
+cd test1
+ls -la >file1>file2>file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la >file4 >file5 >file6 file1 file2 file3
+cat file1
+cat file4
+cat file5
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Hello World | tee file1 file2 file3
+grep Hello file1
+grep World file2
+grep ! file3
+ls -la >file1 >file2 >file3
+grep ls file1
+grep total file2
+grep . file3
+rm file1 file2 file3
+date >file1
+whoami >file2
+ls -la file1 file2 file3
+paste file1 file2 file3 >file4
+ls -la file4
+rm file1 file2 file3 file4
+echo Test Case 6 | tee file1 | tee file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+ls -la >file3
+ls -la >file1 >file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+rm file1 file2 file3 file4
+echo Complex case | tee file1 file2 | grep Complex >file3
+cat file1
+cat file2
+cat file3
+ls -l >file3
+tail -n 1 file3
+rm file1 file2 file3
+hostname >file1
+uname -a >file2
+who >file3
+paste file1 file2 >file4
+paste file3 file4 >file5
+ls -la >file4 >file5
+tail -n 2 file4
+tail -n 3 file5
+rm file1 file2 file3 file4 file5
+df -h >file1
+free -m >file2
+uptime >file3
+cat file1 file2 >file4
+cat file3 file4 >file5
+ls -la >file5
+ls -a file1 file2 file3 file4 file5 | cat >file6
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Final Case | tee file1 | tee file2 | tee file3 >file4
+grep Final file1 file2 file3 file4
+ls -la file1 file2 file3 file4
+ls -l >file4
+cat file4
+rm file1 file2 file3 file4
+ls -la | wc -c | cat | ls -la > file1 > file2
+cat file1
+cat file2
+ls -la | < file1 cat > file3
+cat file3
+ls -la | < file1 cat > file4
+cat file4
+ls -la | wc -la > file1 | ls > file2 | ls -a > file3 | ls -a > file4 | ls -a > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -la | grep test | sort | uniq | tee file1 | wc -l > file2 | cat > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la | grep test | sort | ls -la > file1
+< file1 cat | wc -c > file2 
+ls -la | ehco hello | cat file2 > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la > file1
+ls -l > file2
+< file1 grep test | sort | tee file3 | < file2 wc -c > file4 | cat > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -a > file1 | date > file2 | ls -a > file3 | cat file1 file2 file3 > file4 
+cat file1
+cat file2
+cat file3
+cat file4
+ls -a | wc -c | cat | ls -a > file1
+< file1 cat > file5 | < file2 cat > file6 | < file3 cat > file7
+cat file5
+cat file6
+cat file7
+cd ..
+test
+ls
+clear
+ls
+ls
+ls
+echo hello
+echo hello world
+echo /home/tarazh /home/tarazh tarazh
+ls -l
+ls -la
+echo 0
+bin/ls filethatdoesntexist
+expr 0 0
+echo 0
+ls
+ls -la
+echo 'USER'
+echo tarazh
+env | grep USER_ZD
+env | grep USER=
+export | grep USER
+export new
+export | grep new
+export new=HELLO
+export | grep new
+export hello=home/wazaap
+unset new
+export | grep new
+unset home/wazaap
+export | grep hello
+unset hello
+export | grep hello
+cd ls
+cd ..
+cd something
+pwd
+cd minishell
+cd ..
+pwd
+cd minishell
+dsbksdgbksdghsd
+echo tarazh
+export USER=NEWUSER
+echo NEWUSER
+cd test1
+echo Hello World
+echo Hello World
+echo 'hello world'
+echo 'hello' world
+echo 0
+echo /home/tarazh
+echo /home/tarazh/Core24/test2
+echo NEWUSER
+echo /bin/zsh
+echo Date is: Hën 21 Tet 2024 03:54:12.PD CEST | tee date_file | cut -d ' ' -f 1-3
+rm date_file
+echo total 0 | tee ls_file | wc -l
+echo tarazh | tee user_file | xargs echo User is
+echo 2024-10-21 | tee date_file | cut -d '-' -f 1
+echo 6.8.0-47-generic | tee kernel_file | cut -d '.' -f 1
+rm ls_file user_file date_file kernel_file
+cd ..
+cd test1
+export new
+export | grep new
+env | grep new
+unset new
+export new
+env | grep new
+export new=/tmp/new
+env | grep new
+env | grep new
+export VAR1=Hello
+export VAR2=World
+export | grep VAR
+env | grep VAR
+echo Hello | grep VAR1 > file1
+echo World | grep VAR2 > file1
+unset VAR1
+export | grep VAR1
+env | grep VAR1
+export VAR1=Hello_Again
+env | grep VAR1
+cat file1
+cat file2
+rm file1 file2
+export new=/tmp/new
+export | grep new | tee file1
+cat file1
+rm file1
+export USER_VAR1=Test1 USER_VAR2=Test2
+export | grep USER_VAR
+env | grep USER_VAR1
+env | grep USER_VAR2
+echo Test1 | grep USER_VAR1 > file1
+echo Test2 | grep USER_VAR2 > file2
+cat file1
+cat file2
+unset USER_VAR1
+export | grep USER_VAR1
+env | grep USER_VAR1
+rm file1 file2
+export TMP_VAR1=Variable1 TMP_VAR2=Variable2
+export | grep TMP_VAR
+env | grep TMP_VAR1
+env | grep TMP_VAR2
+echo Variable1 | grep TMP_VAR1 > file1
+echo Variable2 | grep TMP_VAR2 > file2
+unset TMP_VAR1 TMP_VAR2
+export | grep TMP_VAR
+env | grep TMP_VAR
+rm file1 file2 file3
+echo  | cat > file1 | wc -w >file2
+cat file1
+cat file2
+unset SYS_INFO
+export | grep SYS_INFO
+env | grep SYS_INFO
+rm file1 file2 file3 file4
+export COMBINED_VAR=silndoj_tarazh
+echo silndoj_tarazh | grep COMBINED_VAR > file1
+cat file1
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+unset COMBINED_VAR
+export | grep COMBINED_VAR
+env | grep COMBINED_VAR
+rm file1
+export LOAD_AVG=0,24
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+echo 0,24 | cat > load_avg_file
+cat load_avg_file
+unset LOAD_AVG
+export | grep LOAD_AVG
+env | grep LOAD_AVG
+rm load_avg_file
+cd ..
+cd test1
+ls -la >file1>file2>file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la >file4 >file5 >file6 file1 file2 file3
+cat file1
+cat file4
+cat file5
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Hello World | tee file1 file2 file3
+grep Hello file1
+grep World file2
+grep ! file3
+ls -la >file1 >file2 >file3
+grep ls file1
+grep total file2
+grep . file3
+rm file1 file2 file3
+date >file1
+whoami >file2
+ls -la file1 file2 file3
+paste file1 file2 file3 >file4
+ls -la file4
+rm file1 file2 file3 file4
+echo Test Case 6 | tee file1 | tee file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+ls -la >file3
+ls -la >file1 >file2 >file3
+ls -a file1 file2 file3 | cat >file4
+cat file4
+rm file1 file2 file3 file4
+echo Complex case | tee file1 file2 | grep Complex >file3
+cat file1
+cat file2
+cat file3
+ls -l >file3
+tail -n 1 file3
+rm file1 file2 file3
+hostname >file1
+uname -a >file2
+who >file3
+paste file1 file2 >file4
+paste file3 file4 >file5
+ls -la >file4 >file5
+tail -n 2 file4
+tail -n 3 file5
+rm file1 file2 file3 file4 file5
+df -h >file1
+free -m >file2
+uptime >file3
+cat file1 file2 >file4
+cat file3 file4 >file5
+ls -la >file5
+ls -a file1 file2 file3 file4 file5 | cat >file6
+cat file6
+rm file1 file2 file3 file4 file5 file6
+echo Final Case | tee file1 | tee file2 | tee file3 >file4
+grep Final file1 file2 file3 file4
+ls -la file1 file2 file3 file4
+ls -l >file4
+cat file4
+rm file1 file2 file3 file4
+ls -la | wc -c | cat | ls -la > file1 > file2
+cat file1
+cat file2
+ls -la | < file1 cat > file3
+cat file3
+ls -la | < file1 cat > file4
+cat file4
+ls -la | wc -la > file1 | ls > file2 | ls -a > file3 | ls -a > file4 | ls -a > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -la | grep test | sort | uniq | tee file1 | wc -l > file2 | cat > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la | grep test | sort | ls -la > file1
+< file1 cat | wc -c > file2 
+ls -la | ehco hello | cat file2 > file3
+cat file1
+cat file2
+cat file3
+rm file1 file2 file3
+ls -la > file1
+ls -l > file2
+< file1 grep test | sort | tee file3 | < file2 wc -c > file4 | cat > file5
+cat file1
+cat file2
+cat file3
+cat file4
+cat file5
+rm file1 file2 file3 file4 file5
+ls -a > file1 | date > file2 | ls -a > file3 | cat file1 file2 file3 > file4 
+cat file1
+cat file2
+cat file3
+cat file4
+ls -a | wc -c | cat | ls -a > file1
+< file1 cat > file5 | < file2 cat > file6 | < file3 cat > file7
+cat file5
+cat file6
+cat file7
+cd ..
+test

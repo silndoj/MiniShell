@@ -5,10 +5,6 @@ FLAGS				=   -Wextra -Wall -Werror
 
 SRCS_MAIN			= 	src/main.c				\
 						src/main_helper.c		\
-						src/utils.c				\
-						src/utils2.c 			\
-						src/parsing_stuff.c 	\
-						src/pars_utils.c 		\
 						src/builtin.c 			\
 						src/builtin2.c 			\
 						src/history_stuff.c 	\
@@ -16,14 +12,13 @@ SRCS_MAIN			= 	src/main.c				\
 						src/export_builtin.c 	\
 						src/redirect_in.c		\
 						src/redirect_out.c		\
-						src/utility1.c			\
-						src/execute1.c			\
-						src/parse1.c			\
+						src/execute.c			\
+						src/parse.c				\
 						src/pipe1.c				\
 						src/exec_utils.c 		\
-						src/exec_utils2.c 		\
+						src/here_doc.c	 		\
 						src/free.c				\
-						src/pipe_stuff.c		\
+						src/util.c				\
 						src/signals.c			\
 
 LIBFT 				=	tools/libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:57:31 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/18 20:49:29 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/21 03:51:23 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	echo_print(char *string, t_mini *mini)
 		{
 			if (string[i + 1] == '?')
 			{
-				printf("%d ", mini->exitstatus);
+				printf("%d\n", mini->exitstatus);
 				i += 2;
 				continue ;
 			}

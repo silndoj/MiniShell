@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/20 20:26:28 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/21 03:48:00 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,49 @@ static void	parse_and_run(t_mini mini)
 		run(&mini);
 }
 
+char	*increment(char *string)
+{
+	char	*number;
+	char	*returnstring;
+	int		nr;
+
+	number = ft_strchr(string, '=') + 1;
+	nr = ft_atoi(number) + 1;
+	number = ft_itoa(nr);
+	returnstring = ft_strjoin("SHLVL=", number);
+	free(number);
+	return (returnstring);
+}
+
+void	init(t_mini *ministruct, char **envp)
+{
+	int	i;
+
+	i = 0;
+	read_perma_history();
+	ministruct->nr_var = 0;
+	ministruct->argc = 0;
+	while (envp[i] != 0)
+		i ++;
+	ministruct->envp = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	while (envp[i] != 0)
+	{
+		if (ft_strncmp(envp[i], "SHLVL", 5) != 0)
+			ministruct->envp[i] = ft_strdup(envp[i]);
+		else
+			ministruct->envp[i] = increment(envp[i]);
+		i ++;
+	}
+	ministruct->envp[i] = 0;
+	realloc_smaller_2d(ministruct, "OLDPWD");
+}
+
 void	loop_mini(t_mini mini)
 {
 	char	mode;
 
-	while (mini.finished == 0)
+	while (1)
 	{
 		mini.argc = 0;
 		mini.exitstatus = WEXITSTATUS(mini.exitcode);
