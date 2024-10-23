@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 03:18:46 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/21 03:35:19 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/23 03:04:23 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	redirect(char **command, t_io pipes[2], int ic, pid_t *pid)
 	return (false);
 }
 
-void	execute1(t_mini *mini)
+void	builtin(t_mini *mini)
 {
 	if (ft_strncmp(*mini->commands[0], "env", 4) == 0)
 		show_env(mini);
@@ -40,7 +40,20 @@ void	execute1(t_mini *mini)
 	else if (ft_strncmp(*mini->commands[0], "unset", 6) == 0)
 		unset(mini);
 	else
-		else_command(mini);
+		else_command(mini, &mini->built);
+}
+
+char	*parse_cmd_single(char *line)
+{
+	int		i;
+	char	*cmd;
+
+	i = 1;
+	while (isalpha(line[i]))
+		i++;
+	cmd = malloc(sizeof(char) * i);
+	ft_strlcpy(cmd, line, i + 1);
+	return (cmd);
 }
 
 void	execute(t_mini *mini, int ic)
@@ -54,8 +67,11 @@ void	execute(t_mini *mini, int ic)
 	is_child = redirect(mini->commands[ic], pipes, ic, &pid);
 	if (is_child)
 	{
-		execvp(mini->commands[ic][0], mini->commands[ic]);
-		exit_error("execvp");
+		else_command(mini, &mini->built);
+//		builtin(mini);
+//		execvp(mini->commands[ic][0], mini->commands[ic]);
+		free(mini->built);
+//		exit_error("execve");
 	}
 	waitpid(pid, NULL, 0);
 	close_(pipes, ic);

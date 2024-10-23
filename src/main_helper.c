@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:13:05 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/21 03:48:00 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/23 02:52:19 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	init(t_mini *ministruct, char **envp)
 
 void	loop_mini(t_mini mini)
 {
-	char	mode;
-
 	while (1)
 	{
 		mini.argc = 0;
@@ -89,6 +87,7 @@ void	loop_mini(t_mini mini)
 		}
 		perma_history(mini.line);
 		add_history(mini.line);
+		mini.built = parse_cmd_single(mini.line);
 		parse_and_run(mini);
 		unlink("here_doc.txt");
 	}

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 03:19:42 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/21 03:19:44 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/23 02:47:10 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	***parse(char *line)
 	size_t			count;
 
 	splitted = ft_split(line, '|');
+//	print_arguments(splitted);
 	count = count_s(splitted);
 	g_pipe_count = count - 1;
 	commands = malloc(sizeof(char **) * (count + 1));

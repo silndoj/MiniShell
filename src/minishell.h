@@ -6,7 +6,7 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/10/21 03:49:18 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/23 03:01:43 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct mini_t
 	t_var	*variables;
 	size_t	nr_var;
 	char	***commands;
+	char	*built;
 	int		finished;
 	int		argc;
 }	t_mini;
@@ -75,23 +76,24 @@ bool	redirect_in(char **arguments);
 bool	redirect_out(char **arguments);
 void	execute(t_mini *mini, int ic);
 char	***parse(char *line);
-void	exit_error(const char *message);
+char	*parse_cmd_single(char *line);
 bool	connect(t_io pipes[2], int ic);
 void	close_(t_io pipes[2], int ic);
 void	alternate(int **pipes);
 void	erase_from(char **strings, size_t count);
 
-//EXEC_FILES
-void	exec(char *cmd, t_mini *mini);
-void	execute1(t_mini *mini);
-void	unset(t_mini *mini);
-void	exit_programm(t_mini *mini);
-void	echo(t_mini *mini, int i);
+//builtin_FILES
+void	builtin(t_mini *mini);
 void	show_env(t_mini *mini);
+void	save_var(t_mini *mini, int i);
 void	change_directory(char *path, t_mini *mini);
 void	show_path(t_mini *mini);
-void	else_command(t_mini *mini);
+void	exec(char *cmd, t_mini *mini);
+void	echo(t_mini *mini, int i);
+void	exit_error(const char *message);
 void	ft_export(t_mini *mini);
+void	unset(t_mini *mini);
+void	else_command(t_mini *mini, char **cmd);
 
 //UTILS
 int		check_envp(t_mini *mini, char *argument);
@@ -124,7 +126,6 @@ void	perma_history(char *cmdline);
 
 //PARSING
 int		search_var(t_mini *mini, char *string);
-void	save_var(t_mini *mini, int i);
 char	*var_value(char *string, int i);
 
 #endif
