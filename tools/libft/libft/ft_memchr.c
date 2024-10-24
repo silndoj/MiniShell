@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/12 17:14:51 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:20:13 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_mini	mini;
+	unsigned char	*s1;
+	size_t			i;
 
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
+	i = 0;
+	s1 = (unsigned char *) s;
+	while (i < n)
+	{
+		if (s1[i] == (unsigned char) c)
+			return ((void *)(s + i));
+		i++;
+	}
 	return (0);
 }

@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*   By: silndoj <silndoj@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/07 15:43:16 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:16:17 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+void	ft_bzero(void *s, size_t n)
 {
-	t_mini	mini;
-
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
-	return (0);
+	ft_memset(s, 0, n);
 }

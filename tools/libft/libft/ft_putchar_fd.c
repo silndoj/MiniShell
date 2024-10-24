@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/17 23:06:00 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:30:00 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+void	ft_putchar_fd(char c, int fd)
 {
-	t_mini	mini;
-
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
-	return (0);
+	write (fd, &c, 1);
 }

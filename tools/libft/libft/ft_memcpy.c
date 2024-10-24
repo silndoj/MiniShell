@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/08 10:07:00 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:29:33 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_mini	mini;
+	unsigned char	*tmp_dst;
+	unsigned char	*tmp_src;
 
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
-	return (0);
+	if (dst == (void *)0 && src == (void *)0)
+		return (dst);
+	tmp_dst = (unsigned char *) dst;
+	tmp_src = (unsigned char *) src;
+	while (n > 0)
+	{
+		*(tmp_dst++) = *(tmp_src++);
+		n--;
+	}
+	return (dst);
 }

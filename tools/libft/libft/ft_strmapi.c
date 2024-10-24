@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/20 15:03:52 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:31:52 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
-	t_mini	mini;
+	size_t	slen;
+	size_t	i;
+	char	*s1;
 
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
-	return (0);
+	i = 0;
+	slen = ft_strlen(s);
+	s1 = (char *) ft_calloc(slen + 1, sizeof(char));
+	if (!s1)
+		return (NULL);
+	while (s[i])
+	{
+		s1[i] = f(i, s[i]);
+		i++;
+	}
+	return (s1);
 }

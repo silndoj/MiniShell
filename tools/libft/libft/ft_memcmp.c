@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/13 12:19:28 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 19:29:24 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/libft.h"
 
-int	main(int argc, char *argv[], char **env)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_mini	mini;
+	size_t			i;
+	unsigned char	*st1;
+	unsigned char	*st2;
 
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
+	st1 = (unsigned char *) s1;
+	st2 = (unsigned char *) s2;
+	i = 0;
+	while (i < n)
+	{
+		if ((unsigned char) st1[i] != (unsigned char) st2[i])
+			return ((unsigned char) st1[i] - (unsigned char) st2[i]);
+		i++;
+	}
 	return (0);
 }

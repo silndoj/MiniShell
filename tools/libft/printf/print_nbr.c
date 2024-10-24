@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_nbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 18:59:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/24 19:04:10 by silndoj          ###   ########.fr       */
+/*   Created: 2024/03/27 12:57:47 by silndoj           #+#    #+#             */
+/*   Updated: 2024/10/24 16:44:55 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <sys/wait.h>
+#include "../includes/ft_printf.h"
 
-int	main(int argc, char *argv[], char **env)
+void	ft_putnbr_count(int nr, int *count)
 {
-	t_mini	mini;
-
-	gc_init_garbage_collector();
-	add_signalhandler(&mini);
-	if (argc != 0)
-		argv[1] = 0;
-	init(&mini, env);
-	loop_mini(mini);
-	return (0);
+	if (nr == -2147483648)
+		ft_putstr_count("-2147483648", count);
+	else
+	{
+		if (nr < 0)
+		{
+			ft_putchar_count('-', count);
+			nr *= -1;
+		}
+		if (nr >= 0 && nr < 10)
+			ft_putchar_count(nr + 48, count);
+		if (nr > 9)
+		{
+			ft_putnbr_count(nr / 10, count);
+			ft_putnbr_count(nr % 10, count);
+			count++;
+		}
+	}
 }

@@ -1,39 +1,53 @@
-# -*- MakeFile -*-
+NAME		:=	libft.a
+INCL 		:=	-I./includes
+CFLAGS		:=	-Wall -Wextra -Werror
+CC			:=	cc
 
-NAME = libft.a
+OBJ			:=	obj
 
-OBJECTS = ft_tolower.o ft_toupper.o ft_atoi.o ft_bzero.o ft_calloc.o \
-    ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o \
-    ft_itoa.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o \
-    ft_memset.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
-    ft_putstr_fd.o ft_strchr.o ft_strdup.o ft_striteri.o ft_strjoin.o \
-    ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o \
-    ft_strnstr.o ft_strrchr.o ft_split.o ft_strtrim.o ft_substr.o \
-    ft_toupper.o ft_tolower.o 
+LIBFT_DIR	:=	libft
+LIBFT_SRC	:=	$(wildcard $(LIBFT_DIR)/*.c)
+LIBFT_OBJ	:=	$(LIBFT_SRC:$(LIBFT_DIR)/%.c=$(OBJ)/%.o)
 
-BONUSOBJECTS = ft_lstadd_back_bonus.o ft_lstadd_front_bonus.o \
-    ft_lstclear_bonus.o ft_lstdelone_bonus.o ft_lstiter_bonus.o ft_lstlast_bonus.o \
-    ft_lstmap_bonus.o ft_lstnew_bonus.o ft_lstsize_bonus.o
+GNL_DIR		:=	gnl
+GNL_SRC		:=	$(wildcard $(GNL_DIR)/*.c)
+GNL_OBJ		:=	$(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ)/%.o)
 
-${NAME} : all
+GC_DIR		:=	gc
+GC_SRC		:=	$(wildcard $(GC_DIR)/*.c)
+GC_OBJ		:=	$(GC_SRC:$(GC_DIR)/%.c=$(OBJ)/%.o)
 
+PRINTF_DIR	:=	printf
+PRINTF_SRC	:=	$(wildcard $(PRINTF_DIR)/*.c)
+PRINTF_OBJ	:=	$(PRINTF_SRC:$(PRINTF_DIR)/%.c=$(OBJ)/%.o)
 
-all: libft.a
+$(NAME): $(PRINTF_OBJ) $(LIBFT_OBJ) $(GNL_OBJ) $(GC_OBJ)
+	ar rcs $(NAME) $(PRINTF_OBJ) $(LIBFT_OBJ) $(GNL_OBJ) $(GC_OBJ)
 
-libft.a: ${OBJECTS}
-	ar rcs libft.a ${OBJECTS}
+$(OBJ)/%.o: $(PRINTF_DIR)/%.c
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-bonus:  libft.a	${BONUSOBJECTS}
-	ar rcs libft.a ${BONUSOBJECTS}
+$(OBJ)/%.o: $(LIBFT_DIR)/%.c
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-%.o: %.c
-	gcc -c -Wall -Wextra -Werror $< -o $@ 
+$(OBJ)/%.o: $(GNL_DIR)/%.c
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ)/%.o: $(GC_DIR)/%.c
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+all: $(NAME)
 
 clean:
-	rm -f ${OBJECTS} ${BONUSOBJECTS}
+	rm -rf $(OBJ)
 
-fclean:	clean
-	rm -f ${OBJECTS} ${NAME} ${BONUSOBJECTS}
+fclean: clean
+	rm -rf $(NAME)
 
-re:	fclean all
+re: fclean all
 
+.PHONY: all clean fclean re

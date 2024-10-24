@@ -6,13 +6,13 @@
 /*   By: kkuhn <kkuhn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:27:53 by kkuhn             #+#    #+#             */
-/*   Updated: 2024/10/23 03:01:43 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/24 18:47:56 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../tools/libft/libft.h"
+# include "../tools/libft/includes/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>

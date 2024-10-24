@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 03:18:46 by silndoj           #+#    #+#             */
-/*   Updated: 2024/10/23 03:04:23 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/10/23 20:34:47 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ void	execute(t_mini *mini, int ic)
 	is_child = redirect(mini->commands[ic], pipes, ic, &pid);
 	if (is_child)
 	{
-		else_command(mini, &mini->built);
+//		else_command(mini, &mini->built);
 //		builtin(mini);
-//		execvp(mini->commands[ic][0], mini->commands[ic]);
-		free(mini->built);
-//		exit_error("execve");
+		execvp(mini->commands[ic][0], mini->commands[ic]);
+//		free(mini->built);
+		exit_error("execve");
 	}
-	waitpid(pid, NULL, 0);
 	close_(pipes, ic);
 	alternate((int **)pipes);
 }

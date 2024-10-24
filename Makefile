@@ -29,10 +29,10 @@ OBJ_MAIN			=	$(SRCS_MAIN:src/%.c=$(OBJ)/%.o)
 all:						$(NAME)
 
 $(LIBFT):
-				@cd tools/libft && make -s && make bonus -s
+				@cd tools/libft && make -s
 
 $(NAME):$(LIBFT) $(OBJ_MAIN)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) -L./tools/libft -lft -lreadline
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) -L./tools/libft/ -lft -lreadline
 
 $(OBJ)/%.o:	src/%.c
 			@cd tools
